@@ -12,15 +12,15 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      #- name: Configure SSH
-      #  env:
-       #   DEPLOY_HOST: ${{ secrets.DEPLOY_HOST }}
-       # run: |
-        #  mkdir -p ~/.ssh
-        #  echo "$DEPLOY_SSH_KEY" > ~/.ssh/id_rsa
-         # chmod 600 ~/.ssh/id_rsa
-         # ssh-keyscan -H $DEPLOY_HOST >> ~/.ssh/known_hosts
-         # chmod 644 ~/.ssh/known_hosts
+      - name: Configure SSH
+        env:
+          DEPLOY_HOST: ${{ secrets.DEPLOY_HOST }}
+        run: |
+          mkdir -p ~/.ssh
+          echo "$DEPLOY_SSH_KEY" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          ssh-keyscan -H $DEPLOY_HOST >> ~/.ssh/known_hosts
+          chmod 644 ~/.ssh/known_hosts
 
       - name: Deploy to EC2
         env:
